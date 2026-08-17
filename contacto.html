@@ -339,8 +339,7 @@ transition: all .2s ease-in-out;
 
 </section>
 
-          
-    <script>
+      <script>
 document.getElementById('contactForm').addEventListener('submit', function(event) {
   event.preventDefault();
 
@@ -354,67 +353,127 @@ document.getElementById('contactForm').addEventListener('submit', function(event
   const asunto = document.getElementById('asunto').value;
   const mensaje = document.getElementById('mensaje').value.trim();
 
-  // Validaciones
+  // ==========================
+  // VALIDACIONES
+  // ==========================
+
   if (!nombre || !correo || !asunto || !mensaje) {
     mostrarPopup("Por favor, completa todos los campos obligatorios.");
     return;
   }
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if (!emailPattern.test(correo)) {
     mostrarPopup("Por favor, ingresa un correo electrónico válido.");
     return;
   }
 
-  // 🔥 ESTADO ENVIANDO
+  // ==========================
+  // ESTADO ENVIANDO
+  // ==========================
+
   btn.disabled = true;
   texto.innerText = "Enviando...";
   loader.style.display = "inline-block";
 
-  // Enviar por AJAX
-  var formData = new FormData(form);
-  var xhr = new XMLHttpRequest();
+  // ==========================
+  // ENVIAR FORMULARIO
+  // ==========================
+
+  const formData = new FormData(form);
+  const xhr = new XMLHttpRequest();
+
   xhr.open("POST", form.action, true);
 
   xhr.onload = function() {
-    // Volver botón normal
+
+    // Restaurar botón
     btn.disabled = false;
     texto.innerText = "Enviar mensaje";
     loader.style.display = "none";
 
-    if (xhr.status === 200) {
+    console.log("Status:", xhr.status);
+    console.log("Respuesta PHP:", xhr.responseText);
 
-      // Limpiar formulario
+    // ==========================
+    // ÉXITO
+    // ==========================
+
+    if (
+      xhr.status === 200 &&
+      xhr.responseText.trim() === "OK"
+    ) {
+
       form.reset();
 
-      mostrarPopup(`¡Gracias, ${nombre}!\nTu mensaje ha sido enviado correctamente.\nNos pondremos en contacto contigo pronto.`);
+      mostrarPopup(
+        `¡Gracias, ${nombre}!
+Tu mensaje ha sido enviado correctamente.
+Nos pondremos en contacto contigo pronto.`
+      );
 
-    } else {
-      mostrarPopup("Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente.");
+    }
+
+    // ==========================
+    // ERROR PHP
+    // ==========================
+
+    else {
+
+      console.error("Error del servidor:", xhr.responseText);
+
+      mostrarPopup(
+        "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente."
+      );
     }
   };
 
+  // ==========================
+  // ERROR DE CONEXIÓN
+  // ==========================
+
   xhr.onerror = function() {
+
     btn.disabled = false;
     texto.innerText = "Enviar mensaje";
     loader.style.display = "none";
-    mostrarPopup("Error de conexión. Intenta nuevamente.");
+
+    console.error("No se pudo conectar con procesarFormulario.php");
+
+    mostrarPopup(
+      "Error de conexión. Intenta nuevamente."
+    );
   };
 
   xhr.send(formData);
 });
 
+
+// ==========================
 // POPUP
+// ==========================
+
 function mostrarPopup(mensaje) {
-  document.getElementById('popupMensaje').innerText = mensaje;
-  document.getElementById('popup').style.display = 'block';
+  const popupMensaje = document.getElementById('popupMensaje');
+  const popup = document.getElementById('popup');
+
+  if (popupMensaje && popup) {
+    popupMensaje.innerText = mensaje;
+    popup.style.display = 'block';
+  } else {
+    alert(mensaje);
+  }
 }
 
 function cerrarPopup() {
-  document.getElementById('popup').style.display = 'none';
+  const popup = document.getElementById('popup');
+
+  if (popup) {
+    popup.style.display = 'none';
+  }
 }
 </script>
-
 
 
 <footer>
