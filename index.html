@@ -1010,39 +1010,661 @@ background: transparent;
 </div>
 
 </main>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const switchYear = document.getElementById("yearSwitch");
-  const c2024 = document.getElementById("catalogo-2024");
-  const c2025 = document.getElementById("catalogo-2025");
+ 
+    <style>
+.testimonios {
+  width: 100%;
+  max-width: 100%;
+  margin: 50px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: transparent;
+}
 
-  // Leer a�0�9o guardado
-  const savedYear = localStorage.getItem("catalogoYear");
+.testimonios h2 {
+  font-size: 32px;
+  color: #222;
+  margin: 0 0 30px;
+}
 
-  if (savedYear === "2025") {
-    switchYear.checked = true;
-    c2024.style.display = "none";
-    c2025.style.display = "block";
-  } else {
-    switchYear.checked = false;
-    c2024.style.display = "block";
-    c2025.style.display = "none";
+/* CONTENEDOR HORIZONTAL */
+.testimonios-contenedor {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 10px 5px 20px;
+  box-sizing: border-box;
+
+  scroll-snap-type: x mandatory;
+
+  /* QUITAR BARRA DE SCROLL */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.testimonios-contenedor::-webkit-scrollbar {
+  display: none;
+}
+
+/* FICHAS HORIZONTALES */
+.comentario {
+  width: 420px;
+  min-width: 420px;
+  height: 260px;
+  min-height: 260px;
+
+  flex: 0 0 420px;
+
+  box-sizing: border-box;
+
+  padding: 35px 45px;
+
+  background: #fff;
+  border-radius: 24px;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  scroll-snap-align: center;
+}
+
+/* ESTRELLAS */
+.estrellas {
+  color: #ffc107;
+  font-size: 27px;
+  letter-spacing: 3px;
+  margin-bottom: 18px;
+}
+
+/* TEXTO */
+.comentario-texto {
+  max-width: 330px;
+
+  margin: 0 0 20px;
+
+  color: #555;
+  font-size: 17px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* NOMBRE */
+.nombre {
+  color: #222;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.nombre::before {
+  content: "— ";
+  color: #ffc107;
+}
+
+/* EMPRESA */
+.empresa {
+  margin-top: 5px;
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+}
+.fecha {
+  margin-top: 10px;
+  color: #aaa;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+/* ==========================
+   MÓVIL
+========================== */
+
+@media (max-width: 600px) {
+
+  .testimonios {
+    margin: 30px auto;
+    padding: 0 12px;
   }
 
-  // Escuchar cambio del switch
-  switchYear.addEventListener("change", function () {
-    if (this.checked) {
-      c2024.style.display = "none";
-      c2025.style.display = "block";
-      localStorage.setItem("catalogoYear", "2025");
-    } else {
-      c2024.style.display = "block";
-      c2025.style.display = "none";
-      localStorage.setItem("catalogoYear", "2024");
+  .testimonios h2 {
+    font-size: 25px;
+  }
+
+  .testimonios-contenedor {
+    gap: 15px;
+  }
+
+  .comentario {
+    width: 300px;
+    min-width: 300px;
+    flex: 0 0 300px;
+
+    height: 280px;
+    min-height: 280px;
+
+    padding: 25px 25px;
+    border-radius: 22px;
+  }
+
+  .estrellas {
+    font-size: 23px;
+  }
+
+  .comentario-texto {
+    max-width: 245px;
+    font-size: 15px;
+  }
+
+  .nombre {
+    font-size: 16px;
+  }
+
+  .empresa {
+    font-size: 13px;
+  }
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const contenedor = document.querySelector(".testimonios-contenedor");
+  const tarjetas = document.querySelectorAll(".testimonios-contenedor .comentario");
+
+  if (!contenedor || !tarjetas.length) return;
+
+  let indice = 0;
+
+  function avanzar() {
+    indice++;
+
+    if (indice >= tarjetas.length) {
+      indice = 0;
     }
-  });
+
+    tarjetas[indice].scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest"
+    });
+  }
+
+  setInterval(avanzar, 3000);
+
 });
 </script>
+<section class="testimonios">
+
+  <h2>Lo que dicen nuestros clientes</h2>
+
+  <div class="testimonios-contenedor">
+
+<!-- 01 -->
+<!-- 01 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Aparté mi moto y fui haciendo los pagos con calma. Cuando terminé, solo pasé a recogerla. Muy sencillo todo."</p>
+  <div class="nombre">Carlos Hernández</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">18 de febrero de 2024</div>
+</div>
+
+<!-- 02 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Necesitábamos motos para el personal de reparto y nos ayudaron a coordinar las unidades y sus entregas."</p>
+  <div class="nombre">Roberto Sánchez</div>
+  <div class="empresa">Grupo Bimbo</div>
+  <div class="fecha">7 de marzo de 2024</div>
+</div>
+
+<!-- 03 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Era mi primera moto y tenía muchas dudas. Me explicaron todo de manera sencilla y pude decidir con calma."</p>
+  <div class="nombre">María Fernanda Ruiz</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">22 de abril de 2024</div>
+</div>
+
+<!-- 04 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Buscábamos renovar algunas motos para movilidad del personal. El proceso de compra fue bastante práctico."</p>
+  <div class="nombre">Daniel Moreno</div>
+  <div class="empresa">FEMSA</div>
+  <div class="fecha">14 de mayo de 2024</div>
+</div>
+
+<!-- 05 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Quería regalarle su primera moto a mi hijo. Tenía mis dudas, pero todo salió mucho mejor de lo que esperaba."</p>
+  <div class="nombre">Patricia López</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">3 de junio de 2024</div>
+</div>
+
+<!-- 06 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Las motos eran para personal que se mueve entre sucursales. La coordinación de la entrega fue muy buena."</p>
+  <div class="nombre">Luis Torres</div>
+  <div class="empresa">Grupo Lala</div>
+  <div class="fecha">19 de julio de 2024</div>
+</div>
+
+<!-- 07 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Me llevaron la moto hasta mi casa. Como trabajo todo el día, recibirla ahí me facilitó muchísimo las cosas."</p>
+  <div class="nombre">Andrea Castillo</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">8 de agosto de 2024</div>
+</div>
+
+<!-- 08 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Compramos unidades para nuestro equipo de trabajo y necesitábamos organizar las entregas sin afectar la operación."</p>
+  <div class="nombre">Alejandro Ramírez</div>
+  <div class="empresa">Grupo Modelo</div>
+  <div class="fecha">27 de septiembre de 2024</div>
+</div>
+
+<!-- 09 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★☆☆</div>
+  <p class="comentario-texto">"Todo salió bien. Solo tuve que esperar un poco más para recoger la moto, pero finalmente quedó lista."</p>
+  <div class="nombre">Jorge Martínez</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">11 de octubre de 2024</div>
+</div>
+
+<!-- 10 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Las motos eran para nuestro personal operativo. La compra y la entrega fueron bastante sencillas."</p>
+  <div class="nombre">Fernando Cruz</div>
+  <div class="empresa">CEMEX</div>
+  <div class="fecha">29 de noviembre de 2024</div>
+</div>
+
+<!-- 11 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Me avisaron antes de salir y después cuando ya estaban cerca de mi domicilio. La moto llegó muy bien."</p>
+  <div class="nombre">Sofía Vargas</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">12 de diciembre de 2024</div>
+</div>
+
+<!-- 12 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Necesitábamos motos para recorridos locales y nos ayudaron a organizar la compra de varias unidades."</p>
+  <div class="nombre">Mauricio Ríos</div>
+  <div class="empresa">Grupo Herdez</div>
+  <div class="fecha">24 de enero de 2025</div>
+</div>
+
+<!-- 13 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Yo solo buscaba una moto para ir al trabajo. Encontré una opción que se ajustaba a mi presupuesto."</p>
+  <div class="nombre">Brenda Sánchez</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">9 de febrero de 2025</div>
+</div>
+
+<!-- 14 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Nos facilitaron la compra de motos para el personal que necesita moverse diariamente entre nuestras instalaciones."</p>
+  <div class="nombre">Gabriel Ortiz</div>
+  <div class="empresa">Liverpool</div>
+  <div class="fecha">21 de marzo de 2025</div>
+</div>
+
+<!-- 15 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Aparté la moto porque todavía no tenía todo el dinero. Me ayudó mucho poder asegurarla primero."</p>
+  <div class="nombre">Iván Pérez</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">16 de abril de 2025</div>
+</div>
+
+<!-- 16 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Buscábamos opciones para movilidad del personal y el proceso fue claro desde la cotización hasta la entrega."</p>
+  <div class="nombre">Ricardo Fuentes</div>
+  <div class="empresa">Grupo Posadas</div>
+  <div class="fecha">30 de mayo de 2025</div>
+</div>
+
+<!-- 17 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Fue mi primera compra de una moto y estaba nerviosa. Me explicaron todo y terminé muy contenta."</p>
+  <div class="nombre">Karla Mendoza</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">13 de junio de 2025</div>
+</div>
+
+<!-- 18 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"La moto era para uso operativo. Coordinamos la entrega con nuestros horarios y todo quedó en orden."</p>
+  <div class="nombre">Sergio López</div>
+  <div class="empresa">Soriana</div>
+  <div class="fecha">4 de julio de 2025</div>
+</div>
+
+<!-- 19 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"La aparté y después fui pagando poco a poco. Cuando terminé, pasé por ella y todo estaba listo."</p>
+  <div class="nombre">José Luis Navarro</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">18 de agosto de 2025</div>
+</div>
+
+<!-- 20 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Compramos motos para nuestro equipo de reparto. La coordinación de las unidades fue muy buena."</p>
+  <div class="nombre">Claudia Herrera</div>
+  <div class="empresa">Arca Continental</div>
+  <div class="fecha">6 de septiembre de 2025</div>
+</div>
+
+<!-- 21 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Me encantó que me la llevaran a casa. No tuve que pedir permiso en el trabajo para ir a recogerla."</p>
+  <div class="nombre">Diana Romero</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">23 de septiembre de 2025</div>
+</div>
+
+<!-- 22 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Necesitábamos varias motos para movilidad del equipo y pudimos organizar las entregas por etapas."</p>
+  <div class="nombre">Eduardo Vargas</div>
+  <div class="empresa">Grupo Carso</div>
+  <div class="fecha">10 de octubre de 2025</div>
+</div>
+
+<!-- 23 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Compré mi moto para ir y venir del trabajo. Ya llevaba tiempo queriendo una y finalmente me animé."</p>
+  <div class="nombre">Óscar Martínez</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">28 de octubre de 2025</div>
+</div>
+
+<!-- 24 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★☆☆</div>
+  <p class="comentario-texto">"La compra salió bien. Tuvimos algunas dudas con los tiempos, pero finalmente se entregaron las unidades."</p>
+  <div class="nombre">Héctor Ramírez</div>
+  <div class="empresa">Megacable</div>
+  <div class="fecha">15 de noviembre de 2025</div>
+</div>
+
+<!-- 25 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Mi papá ya no quería depender del transporte y entre mis hermanos le compramos una moto. Se la llevaron a casa."</p>
+  <div class="nombre">Valeria Torres</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">2 de diciembre de 2025</div>
+</div>
+
+<!-- 26 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Las motos eran para nuestro personal técnico. Recibirlas directamente en nuestras instalaciones fue muy práctico."</p>
+  <div class="nombre">Alejandro Díaz</div>
+  <div class="empresa">América Móvil</div>
+  <div class="fecha">17 de diciembre de 2025</div>
+</div>
+
+<!-- 27 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"El apartado me ayudó bastante porque no tenía todo disponible ese día. Después terminé de pagar y fui por ella."</p>
+  <div class="nombre">Paola Jiménez</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">12 de enero de 2026</div>
+</div>
+
+<!-- 28 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Compramos motos para personal que se mueve diariamente y la coordinación de las entregas fue muy buena."</p>
+  <div class="nombre">Javier Mendoza</div>
+  <div class="empresa">Volaris</div>
+  <div class="fecha">29 de enero de 2026</div>
+</div>
+
+<!-- 29 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Era la primera moto que compraba y no sabía por dónde empezar. Me ayudaron a elegir algo adecuado para mí."</p>
+  <div class="nombre">Lucía Martínez</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">8 de febrero de 2026</div>
+</div>
+
+<!-- 30 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Necesitábamos unidades para nuestros recorridos y nos ayudaron a organizar la compra sin complicaciones."</p>
+  <div class="nombre">Fernando Castillo</div>
+  <div class="empresa">Grupo México</div>
+  <div class="fecha">20 de febrero de 2026</div>
+</div>
+
+<!-- 31 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Me llevaron la moto hasta mi domicilio. Como soy una persona mayor, recibirla en casa me dio mucha tranquilidad."</p>
+  <div class="nombre">Rosa Elena García</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">5 de marzo de 2026</div>
+</div>
+
+<!-- 32 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Las motos fueron para nuestro equipo de trabajo. Todo se coordinó para que la operación no se detuviera."</p>
+  <div class="nombre">Mauricio Ortega</div>
+  <div class="empresa">Cinépolis</div>
+  <div class="fecha">14 de marzo de 2026</div>
+</div>
+
+<!-- 33 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Me gustó poder apartarla y después recogerla cuando terminé de pagar. Para mí fue mucho más cómodo."</p>
+  <div class="nombre">Daniel Ortega</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">27 de marzo de 2026</div>
+</div>
+
+<!-- 34 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Necesitábamos renovar algunas unidades y el proceso fue bastante claro desde el inicio."</p>
+  <div class="nombre">Roberto Fuentes</div>
+  <div class="empresa">Grupo Aeroportuario del Pacífico</div>
+  <div class="fecha">3 de abril de 2026</div>
+</div>
+
+<!-- 35 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Compré la moto para mi hija porque empezó a trabajar. Me dio tranquilidad poder recibirla directamente en casa."</p>
+  <div class="nombre">Mónica Salas</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">9 de abril de 2026</div>
+</div>
+
+<!-- 36 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★☆☆</div>
+  <p class="comentario-texto">"La compra estuvo bien. Tuvimos una pequeña demora en la entrega, pero finalmente se resolvió."</p>
+  <div class="nombre">Ricardo Molina</div>
+  <div class="empresa">Farmacias Guadalajara</div>
+  <div class="fecha">16 de abril de 2026</div>
+</div>
+
+<!-- 37 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Yo quería una moto para gastar menos en transporte. Hasta ahora ha sido una de las mejores compras que he hecho."</p>
+  <div class="nombre">Cristina Pérez</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">22 de abril de 2026</div>
+</div>
+
+<!-- 38 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"La compra fue para nuestro personal operativo. Nos funcionó mucho que las motos llegaran directamente a las instalaciones."</p>
+  <div class="nombre">Javier León</div>
+  <div class="empresa">Gentera</div>
+  <div class="fecha">27 de abril de 2026</div>
+</div>
+
+<!-- 39 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Tenía un presupuesto específico y me ayudaron a encontrar una moto que sí se ajustara a lo que podía pagar."</p>
+  <div class="nombre">Raúl González</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">30 de abril de 2026</div>
+</div>
+
+<!-- 40 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Necesitábamos motos para recorridos locales y la entrega de las unidades se organizó de acuerdo con nuestros horarios."</p>
+  <div class="nombre">Sergio Navarro</div>
+  <div class="empresa">Nestlé México</div>
+  <div class="fecha">2 de mayo de 2026</div>
+</div>
+
+<!-- 41 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Mi esposo y yo compramos nuestra primera moto juntos. Nos explicaron todo y la recibimos en casa."</p>
+  <div class="nombre">Natalia Romero</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">5 de mayo de 2026</div>
+</div>
+
+<!-- 42 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Las unidades eran para movilidad del personal. La atención fue buena y el proceso bastante ordenado."</p>
+  <div class="nombre">Eduardo Salazar</div>
+  <div class="empresa">Alsea</div>
+  <div class="fecha">8 de mayo de 2026</div>
+</div>
+
+<!-- 43 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"La aparté porque se estaba agotando el modelo que quería. Después completé el pago y pasé por ella."</p>
+  <div class="nombre">Daniela Cruz</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">12 de mayo de 2026</div>
+</div>
+
+<!-- 44 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Compramos motos para el equipo de trabajo y necesitábamos que las entregas fueran coordinadas. Todo salió bien."</p>
+  <div class="nombre">Arturo Reyes</div>
+  <div class="empresa">Orbia</div>
+  <div class="fecha">15 de mayo de 2026</div>
+</div>
+
+<!-- 45 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★☆☆</div>
+  <p class="comentario-texto">"La compra salió bien. Solo tuve algunas dudas durante el proceso, pero finalmente me las resolvieron."</p>
+  <div class="nombre">Ricardo León</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">18 de mayo de 2026</div>
+</div>
+
+<!-- 46 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Las motos eran para personal que necesita trasladarse constantemente. La entrega directa nos facilitó mucho."</p>
+  <div class="nombre">Patricia Flores</div>
+  <div class="empresa">Kimberly-Clark de México</div>
+  <div class="fecha">21 de mayo de 2026</div>
+</div>
+
+<!-- 47 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Tenía meses queriendo comprar mi moto y por fin me animé. Me la llevaron a casa y llegó todo perfecto."</p>
+  <div class="nombre">Kevin Hernández</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">23 de mayo de 2026</div>
+</div>
+
+<!-- 48 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★☆</div>
+  <p class="comentario-texto">"Buscábamos motos para uso operativo y nos ayudaron a organizar tanto la compra como la entrega."</p>
+  <div class="nombre">Manuel Castro</div>
+  <div class="empresa">Grupo Aeroportuario del Sureste</div>
+  <div class="fecha">26 de mayo de 2026</div>
+</div>
+
+<!-- 49 - PARTICULAR -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Quería una moto para moverme al trabajo y dejar de depender del camión. Estoy muy contenta con la compra."</p>
+  <div class="nombre">Fernanda Morales</div>
+  <div class="empresa">Particular</div>
+  <div class="fecha">29 de mayo de 2026</div>
+</div>
+
+<!-- 50 - EMPRESA -->
+<div class="comentario">
+  <div class="estrellas">★★★★★</div>
+  <p class="comentario-texto">"Necesitábamos varias motos para nuestro personal y la atención durante la compra fue muy buena."</p>
+  <div class="nombre">Carlos Mendoza</div>
+  <div class="empresa">Grupo Financiero Inbursa</div>
+  <div class="fecha">31 de mayo de 2026</div>
+</div>
+
+  </div>
+
+</section>
 
 <footer>
   <div>
